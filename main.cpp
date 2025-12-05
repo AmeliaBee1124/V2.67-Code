@@ -8,8 +8,8 @@
 // Chassis constructor
 ez::Drive chassis(
     // These are your drive motors, the first motor is used for sensing!
-    {11, -8, -7},     // Left Chassis Ports (negative port will reverse it!)
-    {-9, 12, 10},  // Right Chassis Ports (negative port will reverse it!)
+    {-9, -12, -10},     // Left Chassis Ports (negative port will reverse it!)
+    {11, 8, 7},  // Right Chassis Ports (negative port will reverse it!)
 
     11,      // IMU Port
     2.75,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
@@ -71,20 +71,6 @@ void initialize() {
       {"Blue Left\n\nDo nothaing", blue_left},
       {"Blue Right\n\nTwo blocks in Two goals", blue_right},
       // {"Reg skills\n\ncool stuff", Reg_skills},
-      {"Drive\n\nDrive forward and come back", drive_example},
-      {"Turn\n\nTurn 3 times.", turn_example},
-      {"Drive and Turn\n\nDrive forward, turn, come back", drive_and_turn},
-      {"Drive and Turn\n\nSlow down during drive", wait_until_change_speed},
-      {"Swing Turn\n\nSwing in an 'S' curve", swing_example},
-      {"Motion Chaining\n\nDrive forward, turn, and come back, but blend everything together :D", motion_chaining},
-      {"Combine all 3 movements", combining_movements},
-      {"Interference\n\nAfter driving forward, robot performs differently if interfered or not", interfered_example},
-      {"Simple Odom\n\nThis is the same as the drive example, but it uses odom instead!", odom_drive_example},
-      {"Pure Pursuit\n\nGo to (0, 30) and pass through (6, 10) on the way.  Come back to (0, 0)", odom_pure_pursuit_example},
-      {"Pure Pursuit Wait Until\n\nGo to (24 , 24) but start running an intake once the robot passes (12 , 24)", odom_pure_pursuit_wait_until_example},
-      {"Boomerang\n\nGo to (0, 24, 45) then come back to (0, 0, 0)", odom_boomerang_example},
-      {"Boomerang Pure Pursuit\n\nGo to (0, 24, 45) on the way to (24, 24) then come back to (0, 0, 0)", odom_boomerang_injected_pure_pursuit_example},
-      {"Measure Offsets\n\nThis will turn the robot a bunch of times and calculate your offsets for your tracking wheels.", measure_offsets},
   });
 
   // Initialize chassis and auton selector
@@ -271,33 +257,26 @@ void opcontrol() {
     // . . .
 
     if (master.get_digital(DIGITAL_L2)) {
-      intake.move(127);
-    } 
-    else if (master.get_digital(DIGITAL_L1)) {
-      intake.move(-127);
-    } 
-    else {
-      intake.move(0);
-    }
-//.//
-    if (master.get_digital(DIGITAL_R2)) {
-      basket.move(127);
-    } 
-    else if (master.get_digital(DIGITAL_R1)) {
-      basket.move(-127);
-    } 
-    else {
-      basket.move(0);
-    }    
-//.//
-    if (master.get_digital(DIGITAL_A)) {
       outtake.move(127);
     } 
-    else if (master.get_digital(DIGITAL_B)) {
+    else if (master.get_digital(DIGITAL_L1)) {
       outtake.move(-127);
     } 
     else {
       outtake.move(0);
+    }
+//.//
+    if (master.get_digital(DIGITAL_R2)) {
+      intake.move(127);
+      intake2.move(127);
+    } 
+    else if (master.get_digital(DIGITAL_R1)) {
+      intake.move(-127);
+      intake2.move(-127);
+    } 
+    else {
+      intake.move(0);
+      intake2.move(0);
     }    
 //.//
     if (master.get_digital_new_press(DIGITAL_LEFT)) {
@@ -311,5 +290,3 @@ void opcontrol() {
     pros::delay(ez::util::DELAY_TIME);  // This is used for timer calculations!  Keep this ez::util::DELAY_TIME
   }
 }
-message.txt
-14 KB
