@@ -13,5 +13,6 @@ inline pros::Motor intake(-1);
 inline pros::Motor intake2(2);
 inline pros::Motor outtake(3);
 inline ez::Piston scrapper('A');
-inline ez::Piston hood('B');
+inline ez::Piston scrapper2('B');
+inline ez::Piston hook('C');
 inline pros::Distance distancesensor(13);
