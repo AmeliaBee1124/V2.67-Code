@@ -2,8 +2,10 @@
 
 void default_constants();
 
-void red_right();
-void red_left();
+void red_right_S();
+void red_right_C();
+void red_left_S();
+void red_left_C();
 void blue_right();
 void blue_left();
 void Main_Skills();
