@@ -8,13 +8,19 @@
 // Chassis constructor
 ez::Drive chassis(
     // These are your drive motors, the first motor is used for sensing!
-    // {-15,-16,-12},     // Left Chassis Ports (negative port will reverse it!)
-    // {14,13,11},  // Right Chassis Ports (negative port will reverse it!)
+    // {-15,-16,-12},     // Left Chassis Ports (negative port will reverse it!)Songhao
+    // {14,13,11},  // Right Chassis Ports (negative port will reverse it!) 
 
-    {-14,-13,-11},     // Left Chassis Ports (negative port will reverse it!)
-    {15,16,12},  // Right Chassis Ports (negative port will reverse it!)
+    // {-7,9,-12},     // Left Chassis Ports (negative port will reverse it!)Songhao 3rd
+    // {-20,10,8},  // Right Chassis Ports (negative port will reverse it!) 
 
-    11,      // IMU Port
+    {20,-10,-8},     // Left Chassis Ports (negative port will reverse it!)Songhao 3rd
+    {7,-9,12},  // Right Chassis Ports (negative port will reverse it!) 
+
+    // {-14,-13,-11},     // Left Chassis Ports (negative port will reverse it!)Carl
+    // {15,16,12},  // Right Chassis Ports (negative port will reverse it!)
+
+    18,      // IMU Port
     2.75,  // Wheel Diameter (Remember, 4" wheels without screw holes are actually 4.125!)
     450
   
@@ -40,6 +46,7 @@ void initialize() {
   ez::ez_template_print();
 
   hook.set(true);
+  // chassis.drive_angle_set(180_deg);
   
 
   pros::delay(500);  // Stop the user from doing anything while legacy ports configure
@@ -68,13 +75,13 @@ void initialize() {
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
       //{"Distance Sensor Skills Left\n\ngood stuff", Main_Skills},
+      {"Blue Right\n\nThis says blue right but its actually new left side third robot Songhao drive. I'm to lazy to make a new program", blue_right},
       {"Red left S\n\nTwo blocks in Two goals", red_left_S},
       {"Red left C\n\nTwo blocks in Two goals", red_left_C},
      // {"Backup Skills\n\ngood stuff", Backup_Skills},
-      {"Red Right S\n\nTwo blocks in Two goals", red_right_S},
+      //{"Red Right S\n\nTwo blocks in Two goals", red_right_S},
       {"Red Right C\n\nTwo blocks in Two goals", red_right_C},
       {"Blue Left\n\nDo nothaing", blue_left},
-      {"Blue Right\n\nTwo blocks in Two goals", blue_right},
       // {"Reg skills\n\ncool stuff", Reg_skills},
   });
 
@@ -262,22 +269,22 @@ void opcontrol() {
     // . . .
 
     if (master.get_digital(DIGITAL_L1)) {
-      outtake.move(127);
-      intake2.move(-127);
-    } 
-    else if (master.get_digital(DIGITAL_L2)) {
       outtake.move(-127);
       intake2.move(127);
+    } 
+    else if (master.get_digital(DIGITAL_L2)) {
+      outtake.move(127);
+      intake2.move(-127);
     } 
     else {
       outtake.move(0);
       intake2.move(0);
     }
 //.//
-    if (master.get_digital(DIGITAL_B)) {
+    if (master.get_digital(DIGITAL_L1)) {
       intake2.move(-127);
     } 
-    else if (master.get_digital(DIGITAL_B)) {
+    else if (master.get_digital(DIGITAL_L2)) {
       intake2.move(127);
     } 
     else {
@@ -285,10 +292,10 @@ void opcontrol() {
     }
 //.//
     if (master.get_digital(DIGITAL_R2)) {
-      intake.move(127);
+      intake.move(-127);
     } 
     else if (master.get_digital(DIGITAL_R1)) {
-      intake.move(-127);
+      intake.move(127);
     } 
     else {
       intake.move(0);
