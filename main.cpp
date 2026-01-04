@@ -47,6 +47,7 @@ void initialize() {
 
   hook.set(true);
   scrapper.set(false);
+  middle.set(true);
   // chassis.drive_angle_set(180_deg);
   
 
@@ -75,7 +76,7 @@ void initialize() {
 
   // Autonomous Selector using LLEMU
   ez::as::auton_selector.autons_add({
-      {"Third Robot skills\n\ngood stuff", Main_Skills},
+      {"Third Robot skills\n\ngood stuff 🍩🕳️ 67676767676767676767676767766767677676767676 teeheehee athena is the best coder and drive coach in the world :)))", Main_Skills},
       {"Blue Right\n\nThis says blue right but its actually new left side third robot Songhao drive. I'm to lazy to make a new program", blue_right},
       {"Red left S\n\nTwo blocks in Two goals", red_left_S},
       {"Red left C\n\nTwo blocks in Two goals", red_left_C},
@@ -308,6 +309,9 @@ void opcontrol() {
 //.//
   if (master.get_digital_new_press(DIGITAL_LEFT)) {
     hook.set(!hook.get());
+  }
+  if (master.get_digital_new_press(DIGITAL_DOWN)) {
+    middle.set(!middle.get());
   } 
 
 
